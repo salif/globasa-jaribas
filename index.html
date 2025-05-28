@@ -1,46 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mul">
 
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Globasa-Jaribas</title>
+	<meta name="description" content="Jaribili basataytitul" />
+	<link rel="canonical" href="https://salif.github.io/globasa-jaribas/" />
 	<link rel="stylesheet" href="https://unpkg.com/simpledotcss@2.3.2/simple.min.css" />
 	<script src="dict.js" defer="defer"></script>
-</head>
-
-<body>
-	<main>
-		<h1>Globasa-Jaribas</h1>
-		<div id="d-start">
-			<input type="button" value="Globasa - English" id="b-glb-eng" />
-			<input type="button" value="English - Globasa" id="b-eng-glb" />
-			<br />
-			<input type="button" value="Globasa - Spanish" id="b-glb-spa" />
-			<input type="button" value="Spanish - Globasa" id="b-spa-glb" />
-			<br />
-			<input type="button" value="Globasa - Bulgarian" id="b-glb-bul" />
-			<input type="button" value="Bulgarian - Globasa" id="b-bul-glb" />
-		</div>
-		<div id="d-input" class="d-none">
-			<textarea id="i-input" rows="10"></textarea>
-		</div>
-		<div id="d-output" class="d-none">
-			<textarea id="i-output" rows="10" disabled="disabled"></textarea>
-		</div>
-		<div id="d-select" class="d-none"></div>
-	</main>
+	<script data-goatcounter="https://sgi.goatcounter.com/count" async="async" src="//gc.zgo.at/count.js"></script>
 	<style>
 		.d-none {
 			display: none;
 		}
 	</style>
+</head>
+
+<body>
+	<header>
+		<h1>Globasa-Jaribas</h1>
+		<p>Jaribili basataytitul</p>
+		<nav>
+			<a href="https://codeberg.org/salif/globasa-jaribas">Aselli kodi</a>
+			<a href="https://bsky.app/profile/did:plc:yjotoaegfyh7xeksycbgn46g">Folo</a>
+			<a href="https://menalari.globasa.net/eng/">Menalari</a>
+		</nav>
+	</header>
+	<noscript>
+		<p class="notice">This page requires JavaScript to work properly.</p>
+	</noscript>
+	<main>
+		<div id="c-start">
+			<input type="button" value="Globasa — Englisa" id="b-glb-eng" />
+			<input type="button" value="Englisa — Globasa" id="b-eng-glb" />
+			<br />
+			<input type="button" value="Globasa — Espanisa" id="b-glb-spa" />
+			<input type="button" value="Espanisa — Globasa" id="b-spa-glb" />
+			<br />
+			<input type="button" value="Globasa — Bulgarisa" id="b-glb-bul" />
+			<input type="button" value="Bulgarisa — Globasa" id="b-bul-glb" />
+		</div>
+		<div id="c-buttons" class="d-none">
+			<input type="button" id="b-cl" value="Safegi" />
+			<input type="button" id="b-back" value="Ruidi" />
+			<!-- <input type="button" value="Yon gwaho" /> -->
+		</div>
+		<div id="c-input" class="d-none">
+			<textarea id="i-input" rows="10"></textarea>
+		</div>
+		<div id="c-output" class="d-none">
+			<textarea id="i-output" rows="10" disabled="disabled"></textarea>
+		</div>
+		<div id="c-select" class="d-none"></div>
+	</main>
 	<script>
 		const elInput = document.getElementById("i-input")
-		const elSelect = document.getElementById("d-select")
+		const elSelect = document.getElementById("c-select")
 		const elOutput = document.getElementById("i-output")
 		const updateSelect = () => {
 			elOutput.value = Array.prototype.map.call(elSelect.children, (e) => e.value).join("")
+		}
+		const cl = () => {
+			elSelect.innerHTML = ""
+			elOutput.value = ""
+			elInput.value = ""
 		}
 		const segmenter = new Intl.Segmenter([], { granularity: "word" });
 		const tr = (fLang, tLang) => {
@@ -88,6 +112,7 @@
 					if (found.length < 2) {
 						newSelect.setAttribute("disabled", "disabled")
 					}
+					newSelect.setAttribute("name", "sel")
 					elSelect.appendChild(newSelect)
 				}
 				updateSelect()
@@ -95,10 +120,11 @@
 		}
 		const oc = (s, fLang, tLang) => {
 			document.getElementById(s).addEventListener("click", (ev) => {
-				document.getElementById("d-start").classList.add("d-none")
-				document.getElementById("d-input").classList.remove("d-none")
-				document.getElementById("d-select").classList.remove("d-none")
-				document.getElementById("d-output").classList.remove("d-none")
+				document.getElementById("c-start").classList.add("d-none")
+				document.getElementById("c-buttons").classList.remove("d-none")
+				document.getElementById("c-input").classList.remove("d-none")
+				document.getElementById("c-select").classList.remove("d-none")
+				document.getElementById("c-output").classList.remove("d-none")
 				elInput.addEventListener("input", tr(fLang, tLang))
 				elInput.focus()
 			})
@@ -109,6 +135,15 @@
 		oc("b-bul-glb", "bul", "glb")
 		oc("b-glb-spa", "glb", "spa")
 		oc("b-spa-glb", "spa", "glb")
+		document.getElementById("b-cl").addEventListener("click", cl)
+		document.getElementById("b-back").addEventListener("click", (ev) => {
+			cl()
+			document.getElementById("c-start").classList.remove("d-none")
+			document.getElementById("c-buttons").classList.add("d-none")
+			document.getElementById("c-input").classList.add("d-none")
+			document.getElementById("c-select").classList.add("d-none")
+			document.getElementById("c-output").classList.add("d-none")
+		})
 	</script>
 </body>
 

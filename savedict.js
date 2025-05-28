@@ -13,6 +13,20 @@ const f = (word, lang) => {
 	word.trans[lang].forEach(meanings => {
 		meanings.forEach(meaning => {
 			if (meaning.startsWith("-")) { return }
+			if (meaning.indexOf(": ") > -1) {
+				meaning = meaning.substring(meaning.indexOf(": ") + 2)
+			}
+			if (meaning.indexOf("(") > -1 || meaning.indexOf(")") > -1) {
+				if (meaning.indexOf("(") > 0 && meaning.indexOf(")") < meaning.length - 1) {
+					meaning = meaning.replace(/\s*\(.*?\)/g, "")
+				} else {
+					meaning = meaning.replace(/\s*\(.*?\)\s*/g, "")
+				}
+			}
+			if (meaning.indexOf("<em>") > -1 || meaning.indexOf("</em>") > -1) {
+				meaning = meaning.replaceAll("<em>", "").replaceAll("</em>", "")
+			}
+			if (meaning.length === 0) { return }
 			if (!dict[lang].glb.hasOwnProperty(meaning)) {
 				dict[lang].glb[meaning] = []
 			}
