@@ -38,8 +38,14 @@
 			<input type="button" value="Globasa — Espanisa" id="b-glb-spa" />
 			<input type="button" value="Espanisa — Globasa" id="b-spa-glb" />
 			<br />
+			<input type="button" value="Globasa — Turkisa" id="b-glb-tur" />
+			<input type="button" value="Turkisa — Globasa" id="b-tur-glb" />
+			<br />
 			<input type="button" value="Globasa — Bulgarisa" id="b-glb-bul" />
 			<input type="button" value="Bulgarisa — Globasa" id="b-bul-glb" />
+			<br />
+			<input type="button" value="Globasa — Esperanto" id="b-glb-epo" />
+			<input type="button" value="Esperanto — Globasa" id="b-epo-glb" />
 		</div>
 		<div id="c-buttons" class="d-none">
 			<input type="button" id="b-cl" value="Safegi" />
@@ -47,7 +53,7 @@
 			<!-- <input type="button" value="Yon gwaho" /> -->
 		</div>
 		<div id="c-input" class="d-none">
-			<textarea id="i-input" rows="10"></textarea>
+			<textarea id="i-input" rows="10" placeholder="Am ingi texto"></textarea>
 		</div>
 		<div id="c-output" class="d-none">
 			<textarea id="i-output" rows="10" disabled="disabled"></textarea>
@@ -94,6 +100,7 @@
 						newOption.value = word
 						newSelect.appendChild(newOption)
 					} else {
+						const shortest = found.length < 2 ? "" : found.reduce((a, b) => a.length <= b.length ? a : b)
 						found.forEach(word => {
 							const newOption = document.createElement("option")
 							let optionValue = word
@@ -105,6 +112,9 @@
 							}
 							newOption.value = optionValue
 							newOption.textContent = word
+							if (word === shortest) {
+								newOption.setAttribute("selected", "selected")
+							}
 							newSelect.appendChild(newOption)
 						})
 						newSelect.addEventListener("change", updateSelect)
@@ -131,10 +141,14 @@
 		}
 		oc("b-glb-eng", "glb", "eng")
 		oc("b-eng-glb", "eng", "glb")
-		oc("b-glb-bul", "glb", "bul")
-		oc("b-bul-glb", "bul", "glb")
 		oc("b-glb-spa", "glb", "spa")
 		oc("b-spa-glb", "spa", "glb")
+		oc("b-glb-tur", "glb", "tur")
+		oc("b-tur-glb", "tur", "glb")
+		oc("b-glb-bul", "glb", "bul")
+		oc("b-bul-glb", "bul", "glb")
+		oc("b-glb-epo", "glb", "epo")
+		oc("b-epo-glb", "epo", "glb")
 		document.getElementById("b-cl").addEventListener("click", cl)
 		document.getElementById("b-back").addEventListener("click", (ev) => {
 			cl()

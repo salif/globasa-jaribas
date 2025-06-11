@@ -1,8 +1,5 @@
 const fs = require("fs")
-const eng = JSON.parse(fs.readFileSync("/tmp/standard-eng.json", "utf-8"))
-const spa = JSON.parse(fs.readFileSync("/tmp/standard-spa.json", "utf-8"))
-const bul = JSON.parse(fs.readFileSync("/tmp/standard-bul.json", "utf-8"))
-const dict = { glb: { eng: {}, spa: {}, bul: {} }, eng: { glb: {} }, spa: { glb: {} }, bul: { glb: {} } }
+const dict = { glb: { eng: {}, spa: {}, tur: {}, bul: {}, epo: {} }, eng: { glb: {} }, spa: { glb: {} }, tur: { glb: {} }, bul: { glb: {} }, epo: { glb: {} } }
 const f = (word, lang) => {
 	if (word.term.startsWith("-")) { return }
 	if (word.term.startsWith("(fe) ")) { word.term = word.term.substring(5) }
@@ -36,7 +33,9 @@ const f = (word, lang) => {
 		})
 	})
 }
-Object.values(eng).forEach(e => { f(e, "eng") })
-Object.values(spa).forEach(e => { f(e, "spa") })
-Object.values(bul).forEach(e => { f(e, "bul") })
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-eng.json", "utf-8"))).forEach(e => { f(e, "eng") })
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-spa.json", "utf-8"))).forEach(e => { f(e, "spa") })
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-tur.json", "utf-8"))).forEach(e => { f(e, "tur") })
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-bul.json", "utf-8"))).forEach(e => { f(e, "bul") })
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-epo.json", "utf-8"))).forEach(e => { f(e, "epo") })
 fs.writeFileSync("dict.js", "var dict=" + JSON.stringify(dict))
