@@ -1,12 +1,13 @@
 const fs = require("fs")
 const dict = { glb: { eng: {}, spa: {}, tur: {}, bul: {}, epo: {} }, eng: { glb: {} }, spa: { glb: {} }, tur: { glb: {} }, bul: { glb: {} }, epo: { glb: {} } }
-const f = (word, lang) => {
+const f = (word, lang, rev) => {
 	if (word.term.startsWith("-")) { return }
 	if (word.term.startsWith("(fe) ")) { word.term = word.term.substring(5) }
 	if (!dict.glb[lang].hasOwnProperty(word.term)) {
 		dict.glb[lang][word.term] = {}
 	}
 	dict.glb[lang][word.term] = word.trans[lang].flat(1)
+	if (!rev) { return }
 	word.trans[lang].forEach(meanings => {
 		meanings.forEach(meaning => {
 			if (meaning.startsWith("-")) { return }
@@ -33,9 +34,16 @@ const f = (word, lang) => {
 		})
 	})
 }
-Object.values(JSON.parse(fs.readFileSync("/tmp/standard-eng.json", "utf-8"))).forEach(e => { f(e, "eng") })
-Object.values(JSON.parse(fs.readFileSync("/tmp/standard-spa.json", "utf-8"))).forEach(e => { f(e, "spa") })
-Object.values(JSON.parse(fs.readFileSync("/tmp/standard-tur.json", "utf-8"))).forEach(e => { f(e, "tur") })
-Object.values(JSON.parse(fs.readFileSync("/tmp/standard-bul.json", "utf-8"))).forEach(e => { f(e, "bul") })
-Object.values(JSON.parse(fs.readFileSync("/tmp/standard-epo.json", "utf-8"))).forEach(e => { f(e, "epo") })
-fs.writeFileSync("dict.js", "var dict=" + JSON.stringify(dict))
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-eng.json", "utf-8"))).forEach(e => { f(e, "eng", true) })
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-spa.json", "utf-8"))).forEach(e => { f(e, "spa", true) })
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-tur.json", "utf-8"))).forEach(e => { f(e, "tur", true) })
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-bul.json", "utf-8"))).forEach(e => { f(e, "bul", true) })
+Object.values(JSON.parse(fs.readFileSync("/tmp/standard-epo.json", "utf-8"))).forEach(e => { f(e, "epo", true) })
+Object.entries(JSON.parse(fs.readFileSync("del.json", "utf-8"))).forEach(en => {
+	Object.entries(en[1]).forEach(e => {
+		const o = { term: e[0], trans: {} }
+		o.trans[en[0]] = e[1]
+		f(o, en[0], false)
+	})
+})
+fs.writeFileSync("dict.min.js", "var dict=" + JSON.stringify(dict))
