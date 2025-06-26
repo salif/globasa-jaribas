@@ -7,10 +7,13 @@
 	<title>Globasa-Jaribas</title>
 	<meta name="description" content="Jaribili basataytitul" />
 	<link rel="canonical" href="https://salif.github.io/globasa-jaribas/" />
-	<link rel="stylesheet" href="https://unpkg.com/simpledotcss@2.3.2/simple.min.css" />
+	<link rel="stylesheet" href="dist/simple.min.css" />
 	<script src="dict.min.js" defer="defer"></script>
 	<script data-goatcounter="https://sgi.goatcounter.com/count" async="async" src="//gc.zgo.at/count.js"></script>
 	<style>
+		body {
+			margin: 0;
+		}
 		.d-none {
 			display: none;
 		}
@@ -18,48 +21,50 @@
 </head>
 
 <body>
-	<header>
-		<h1>Globasa-Jaribas</h1>
-		<p>Jaribili basataytitul</p>
-		<nav>
-			<a href="https://codeberg.org/salif/globasa-jaribas">Aselli kodi</a>
-			<a href="https://bsky.app/profile/did:plc:yjotoaegfyh7xeksycbgn46g">Folo</a>
-			<a href="https://menalari.globasa.net/eng/">Menalari</a>
-		</nav>
-	</header>
-	<noscript>
-		<p class="notice">This page requires JavaScript to work properly.</p>
-	</noscript>
-	<main>
-		<div id="c-start">
-			<input type="button" value="Globasa — Englisa" id="b-glb-eng" />
-			<input type="button" value="Englisa — Globasa" id="b-eng-glb" />
-			<br />
-			<input type="button" value="Globasa — Espanisa" id="b-glb-spa" />
-			<input type="button" value="Espanisa — Globasa" id="b-spa-glb" />
-			<br />
-			<input type="button" value="Globasa — Turkisa" id="b-glb-tur" />
-			<input type="button" value="Turkisa — Globasa" id="b-tur-glb" />
-			<br />
-			<input type="button" value="Globasa — Bulgarisa" id="b-glb-bul" />
-			<input type="button" value="Bulgarisa — Globasa" id="b-bul-glb" />
-			<br />
-			<input type="button" value="Globasa — Esperanto" id="b-glb-epo" />
-			<input type="button" value="Esperanto — Globasa" id="b-epo-glb" />
-		</div>
-		<div id="c-buttons" class="d-none">
-			<input type="button" id="b-cl" value="Safegi" />
-			<input type="button" id="b-back" value="Ruidi" />
-			<!-- <input type="button" value="Yon gwaho" /> -->
-		</div>
-		<div id="c-input" class="d-none">
-			<textarea id="i-input" rows="10" placeholder="Am ingi texto"></textarea>
-		</div>
-		<div id="c-output" class="d-none">
-			<textarea id="i-output" rows="10" disabled="disabled"></textarea>
-		</div>
-		<div id="c-select" class="d-none"></div>
-	</main>
+	<div id="app">
+		<header>
+			<h1>Globasa-Jaribas</h1>
+			<p>Jaribili basataytitul</p>
+			<nav>
+				<a href="https://codeberg.org/salif/globasa-jaribas">Aselli kodi</a>
+				<a href="https://bsky.app/profile/did:plc:yjotoaegfyh7xeksycbgn46g">Folo</a>
+				<a href="https://menalari.globasa.net/eng/">Menalari</a>
+			</nav>
+		</header>
+		<noscript>
+			<p class="notice">This page requires JavaScript to work properly.</p>
+		</noscript>
+		<main>
+			<div id="c-start">
+				<input type="button" value="Globasa — Englisa" id="b-glb-eng" />
+				<input type="button" value="Englisa — Globasa" id="b-eng-glb" />
+				<br />
+				<input type="button" value="Globasa — Espanisa" id="b-glb-spa" />
+				<input type="button" value="Espanisa — Globasa" id="b-spa-glb" />
+				<br />
+				<input type="button" value="Globasa — Turkisa" id="b-glb-tur" />
+				<input type="button" value="Turkisa — Globasa" id="b-tur-glb" />
+				<br />
+				<input type="button" value="Globasa — Bulgarisa" id="b-glb-bul" />
+				<input type="button" value="Bulgarisa — Globasa" id="b-bul-glb" />
+				<br />
+				<input type="button" value="Globasa — Esperanto" id="b-glb-epo" />
+				<input type="button" value="Esperanto — Globasa" id="b-epo-glb" />
+			</div>
+			<div id="c-buttons" class="d-none">
+				<input type="button" id="b-cl" value="Safegi" />
+				<input type="button" id="b-back" value="Ruidi" />
+				<!-- <input type="button" value="Yon gwaho" /> -->
+			</div>
+			<div id="c-input" class="d-none">
+				<textarea id="i-input" rows="10" placeholder="Am ingi texto"></textarea>
+			</div>
+			<div id="c-output" class="d-none">
+				<textarea id="i-output" rows="10" disabled="disabled"></textarea>
+			</div>
+			<div id="c-select" class="d-none"></div>
+		</main>
+	</div>
 	<script>
 		const elInput = document.getElementById("i-input")
 		const elSelect = document.getElementById("c-select")

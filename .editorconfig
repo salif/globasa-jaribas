@@ -18,6 +18,6 @@ indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 
-[{LICENSE,*.min.js,*.min.css}]
+[{LICENSE.txt,*.min.js,*.min.css}]
 trim_trailing_whitespace = false
 insert_final_newline = false
